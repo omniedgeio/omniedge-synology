@@ -9,14 +9,26 @@ download_omniedge() {
   local base_url="https://github.com/omniedgeio/omniedge-linux-cli/releases/download"
   local pkg_name="omniedge-${ARCH}.zip"
   local src_pkg="${base_url}/v${OMNIEDGE_VERSION}/${pkg_name}"
-  local dest_pkg="_omniedge/v${OMNIEDGE_VERSION}/${pkg_name}"
-  mkdir -p ./_omniedge/v${OMNIEDGE_VERSION}
+  local dest_dir="_omniedge/omniedge_v${OMNIEDGE_VERSION}_${ARCH}"
+  local dest_pkg="${dest_dir}/${pkg_name}"
+  mkdir -p ${dest_dir}
 
   echo ">>> Downloading package: ${src_pkg}"
   wget --no-verbose -c ${src_pkg} -O ${dest_pkg}
 
   echo ">>> Extracting.."
-  unzip ${dest_pkg} -d ./_omniedge/v${OMNIEDGE_VERSION}
+  unzip ${dest_pkg} -d ${dest_dir}
+}
+
+make_inner_pkg() {
+  local tmp_dir=$1
+  local dest_dir=$2
+  local dest_pkg="${dest_dir}/package.tgz"
+  local omniedge_dir="_omniedge/omniedge_${OMNIEDGE_VERSION}_${ARCH}"
+
+  echo ">>> Making inner package.tgz"
+  mkdir -p ${tem_dir}/bin
+  cp -a ${omniedge_dir}/omniedge ${tmp_dir}/bin/
 }
 
 make_pkg() {
