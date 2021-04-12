@@ -37,6 +37,23 @@ make_inner_pkg() {
   ls --color=no ${tmp_dir} | tar -cJf ${dest_pkg} -C "${tmp_dir}" -T /dev/stdin
 }
 
+make_spk() {
+  local spk_tmp_dir=$1
+  local spk_dest_dir="./spks"
+  local pkg_size=$(cat ${spk_tmp_dir}/extractsize_tmp)
+  local spk_filename="omniedge_${OMNIEDGE_VERSION}_${ARCH}.spk"
+
+  echo ">>> Making spk: ${spk_filename}"
+  mkdir -p ${spk_dest_dir}
+  rm "${spk_tmp_dir}/extractsize_tmp"
+
+  # copy scripts and icon
+
+  # generate INFO file
+
+  tar -cf "${spk_dest_dir}/${spk_filename}" -C "${spk_tmp_dir}" $(ls ${spk_tmp_dir})
+}
+
 make_pkg() {
   mkdir -p ./_build
   local pkg_temp_dir=$(mktemp -d -p ./_build)
