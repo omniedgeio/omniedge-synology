@@ -24,11 +24,16 @@ make_inner_pkg() {
   local tmp_dir=$1
   local dest_dir=$2
   local dest_pkg="${dest_dir}/package.tgz"
-  local omniedge_dir="_omniedge/omniedge_${OMNIEDGE_VERSION}_${ARCH}"
+  local omniedge_dir="_omniedge/omniedge_v${OMNIEDGE_VERSION}_${ARCH}"
 
   echo ">>> Making inner package.tgz"
-  mkdir -p ${tem_dir}/bin
+  mkdir -p ${tmp_dir}/bin
   cp -a ${omniedge_dir}/omniedge ${tmp_dir}/bin/
+
+  pkg_size=$(du -sk "${tmp_dir}" | awk '{print $1}')
+  echo "${pkg_size}" >> "${dest_dir}/extractsize_tmp"
+
+  ls --color=no ${tmp_dir} | tar -cJf ${dest_pkg} -C "${tmp_dir}" -T /dev/stdin
 }
 
 make_pkg() {
