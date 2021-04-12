@@ -33,6 +33,7 @@ make_inner_pkg() {
   pkg_size=$(du -sk "${tmp_dir}" | awk '{print $1}')
   echo "${pkg_size}" >> "${dest_dir}/extractsize_tmp"
 
+  # Creating tar based on output of ls
   ls --color=no ${tmp_dir} | tar -cJf ${dest_pkg} -C "${tmp_dir}" -T /dev/stdin
 }
 
