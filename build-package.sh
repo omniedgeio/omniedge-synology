@@ -30,6 +30,7 @@ make_inner_pkg() {
   mkdir -p ${tmp_dir}/bin
   cp -a ${omniedge_dir}/omniedge ${tmp_dir}/bin/
 
+  #TODO: does omniedge have a daemon? Shall we add logrotate conf?
   pkg_size=$(du -sk "${tmp_dir}" | awk '{print $1}')
   echo "${pkg_size}" >> "${dest_dir}/extractsize_tmp"
 
@@ -48,6 +49,7 @@ make_spk() {
   rm "${spk_tmp_dir}/extractsize_tmp"
 
   # copy scripts and icon
+  cp -ra src/scripts ${spk_tmp_dir}
   cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
 
   # generate INFO file
