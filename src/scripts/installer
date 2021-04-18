@@ -13,8 +13,10 @@ logstep() { # <step_name>
 postinst() {
   logstep "postinst"
 
-  mkdir -vp $TARGET_PATH/var >>${INST_LOG} 2>&1
+  mkdir -vp ${TARGET_PATH}/var >>${INST_LOG} 2>&1
   mkdir -vp /usr/local/bin >>${INST_LOG} 2>&1
+  echo "#!/bin/bash" >/usr/local/bin/omniedge"
+  echo "${TARGET_PATH}/bin/omniedge \$@" >>/usr/local/bin/omniedge
 
   chmod -v a+x /usr/local/bin/omniedge >>${INST_LOG} 2>&1
 }
