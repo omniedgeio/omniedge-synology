@@ -35,7 +35,7 @@ cat <<EOF
 package="omniedge"
 version="${VERSION}"
 arch="${PLATFORMS}"
-description="Connect all your devices using WireGuard, without the hassle."
+description="Connect all your devices on any platform, without the hassle."
 displayname="Omniedge"
 maintainer="brucebot, mtx2d"
 maintainer_url="https://github.com/omiedgeio/omniedge-synology"
