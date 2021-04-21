@@ -24,6 +24,20 @@ stop() {
   fi
 }
 
+tun_created() {
+    if ([ ! -c /dev/net/tun ]); then
+        if ([ ! -d /dev/net ]); then
+            mkdir -m 755 /dev/net
+        fi
+        mknod /dev/net/tun c 10 200
+        chmod 0755 /dev/net/tun
+    fi
+
+    if (!(lsmod | grep -q "^tun\s")); then
+        insmod /lib/modules/tun.ko
+    fi
+}
+
 status() {
   if [ -n "${PID_FILE}" -a -r "${PID_FILE}" ]; then
     local PID=$(cat "${PID_FILE}")
@@ -42,6 +56,7 @@ start)
     exit 0
   else
     echo "Starting ${SERVICE_NAME} ..."
+    tun_created
     start
     exit $?
   fi
