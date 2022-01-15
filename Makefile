@@ -1,8 +1,8 @@
-OMNIEDGE_VERSION="0.1.0"
+OMNIEDGE_VERSION="0.2.1"
 
 .PHONY: omniedge-% clean purge
 
-all: omniedge-amd64 omniedge-arm
+all: omniedgecli-ubuntu-18.04 omniedgecli-armv7 omniedgecli-arm64v8
 
 omniedge-%:
 	@./build-package.sh ${OMNIEDGE_VERSION} $*
