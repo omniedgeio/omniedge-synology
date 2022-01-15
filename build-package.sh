@@ -6,7 +6,7 @@ OMNIEDGE_VERSION=$1
 ARCH=$2
 
 download_omniedge() {
-  local base_url="https://github.com/omniedgeio/omniedge-linux-cli/releases/download"
+  local base_url="https://github.com/omniedgeio/app-release/releases/download"
   local pkg_name="omniedge-${ARCH}.zip"
   local src_pkg="${base_url}/v${OMNIEDGE_VERSION}/${pkg_name}"
   local dest_dir="_omniedge/omniedge_v${OMNIEDGE_VERSION}_${ARCH}"
