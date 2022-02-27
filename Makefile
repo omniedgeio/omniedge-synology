@@ -1,4 +1,4 @@
-OMNIEDGE_VERSION="0.2.1"
+OMNIEDGE_VERSION="0.2.2"
 
 .PHONY: omniedge-% clean purge
 
