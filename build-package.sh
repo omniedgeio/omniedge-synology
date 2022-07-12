@@ -51,6 +51,7 @@ make_spk() {
   # copy scripts and icon
   cp -ra src/scripts ${spk_tmp_dir}
   cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
+  cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
 
   # generate INFO file
   ./src/INFO.sh "${OMNIEDGE_VERSION}" ${ARCH} ${pkg_size} >"${spk_tmp_dir}"/INFO
