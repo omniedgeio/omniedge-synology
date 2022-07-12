@@ -1,13 +1,21 @@
 #!/bin/bash
 
 SERVICE="omniedge"
-COMMAND="/usr/local/bin/omniedge join"
+COMMAND="/usr/local/bin/omniedge"
 PID_FILE="${SYNOPKG_PKGDEST}/var/omniedge.pid"
 LOG_FILE="${SYNOPKG_PKGDEST}/var/omniedge.log"
+DIALOG_FILE="/var/packages/omniedge/dialog"
+
+if [ -f "${DIALOG_FILE}" ]; then
+    . ${DIALOG_FILE}
+fi
 
 start() {
-  echo "=== Starting ${SERVICE_NAME} with: ${SERVICE_COMMAND}" >>${LOG_FILE}
-  ${SERVICE_COMMAND} >>${LOG_FILE} 2>&1 &
+  echo "=== Starting ${SERVICE_NAME} with: ${SERVICE_COMMAND} login" >>${LOG_FILE}
+  ${SERVICE_COMMAND} login -s ${SECURITY_KEY} -f /var/packages/omniedge/auth.json >>${LOG_FILE} 2>&1
+
+  echo "=== Starting ${SERVICE_NAME} with: ${SERVICE_COMMAND} join" >>${LOG_FILE}
+  ${SERVICE_COMMAND} join -n ${NETWORK_ID} -f /var/packages/omniedge/auth.json >>${LOG_FILE} 2>&1 &
   if [ -n "${PID_FILE}" ]; then
     echo "$!" >"${PID_FILE}"
   fi

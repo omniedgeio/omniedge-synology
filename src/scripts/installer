@@ -19,6 +19,9 @@ postinst() {
   echo "${TARGET_PATH}/bin/omniedge \$@" >>/usr/local/bin/omniedge
 
   chmod -v a+x /usr/local/bin/omniedge >>${INST_LOG} 2>&1
+
+  echo "NETWORK_ID=${omniedge_network_id}" > /var/packages/${SYNOPKG_PKGNAME}/dialog 2>&1
+  echo "SECURITY_KEY=${omniedge_security_key}" >> /var/packages/${SYNOPKG_PKGNAME}/dialog 2>&1
 }
 
 postuninst() {
