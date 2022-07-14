@@ -35,10 +35,10 @@ cat <<EOF
 package="omniedge"
 version="${VERSION}"
 arch="${PLATFORMS}"
-description="Connect all your devices on any platform, without the hassle."
-displayname="Omniedge"
+description="Bring Intranet on the Internet. What happens in intranet, stays in intranet."
+displayname="OmniEdge"
 maintainer="brucebot, mtx2d"
-maintainer_url="https://github.com/omiedgeio/omniedge-synology"
+maintainer_url="https://github.com/omiedgeio/omniedge"
 create_time="${TIMESTAMP}"
 extractsize=${PKG_SIZE}
 EOF

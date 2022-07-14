@@ -15,6 +15,7 @@ Download for your synology Model:
 
 |Version|Release Date|Notes|
 |--|--|--|
+|0.2.5|July, 14, 2022|Fix DSM7 & DSM6 running error|
 |0.2.4|July, 12, 2022|Add configuration wizard during installation|
 |0.2.3|April, 25, 2022|Add refresh token|
 |0.2.2|February, 27,2022|Fix machine ID error|
@@ -29,5 +30,7 @@ Download for your synology Model:
 2. Generate **Security-key** and get the **Virtual Network ID** from [Dashboard](https://omniedge.io/dashboard)
 3. Download and install OmniEdge Synology
 4. Fill **Security-key** and **Network ID** during the installation wizard
+5. Install for DSM7 `sudo sed -i 's/package/root/g' /var/packages/omniedge/conf/privilege`, for DSM6 `route add -net 100.100.0.0/24 dev networkcardname`
+
 
 ![](omnedge-synology.png)
