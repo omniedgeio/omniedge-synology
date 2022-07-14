@@ -3,6 +3,7 @@
 set -e
 
 OMNIEDGE_VERSION=$1
+SYNOLOGY_VERSION=${OMNIEDGE_VERSION}+".2"
 ARCH=$2
 
 download_omniedge() {
@@ -42,7 +43,7 @@ make_spk() {
   local spk_tmp_dir=$1
   local spk_dest_dir="./spks"
   local pkg_size=$(cat ${spk_tmp_dir}/extractsize_tmp)
-  local spk_filename="omniedge_${OMNIEDGE_VERSION}_${ARCH}.spk"
+  local spk_filename="omniedge_${SYNOLOGY_VERSION}_${ARCH}.spk"
 
   echo ">>> Making spk: ${spk_filename}"
   mkdir -p ${spk_dest_dir}
@@ -52,9 +53,11 @@ make_spk() {
   cp -ra src/scripts ${spk_tmp_dir}
   cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
   cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
+  cp -ra src/log ${spk_tmp_dir}
+  cp -ra src/conf ${spk_tmp_dir}
 
   # generate INFO file
-  ./src/INFO.sh "${OMNIEDGE_VERSION}" ${ARCH} ${pkg_size} >"${spk_tmp_dir}"/INFO
+  ./src/INFO.sh "${SYNOLOGY_VERSION}" ${ARCH} ${pkg_size} >"${spk_tmp_dir}"/INFO
 
   tar -cf "${spk_dest_dir}/${spk_filename}" -C "${spk_tmp_dir}" $(ls ${spk_tmp_dir})
 }
@@ -72,7 +75,7 @@ make_pkg() {
 }
 
 main() {
-  echo "> Building package for OMNIEDGE_VERSION=${OMNIEDGE_VERSION} ARCH=${ARCH}"
+  echo "> Building package for OMNIEDGE_VERSION=${OMNIEDGE_VERSION} SYNOLOGY_VERSION=${SYNOLOGY_VERSION} ARCH=${ARCH}"
   download_omniedge
   make_pkg
 }

@@ -36,9 +36,11 @@ package="omniedge"
 version="${VERSION}"
 arch="${PLATFORMS}"
 description="Bring Intranet on the Internet."
+description_chs="端到端企业 VPN 解决方案，无需公网 IP，无需端口转发，无需反向代理。"
 displayname="Omniedge"
 maintainer="brucebot, mtx2d"
 maintainer_url="https://github.com/omiedgeio/omniedge-synology"
 create_time="${TIMESTAMP}"
 extractsize=${PKG_SIZE}
+os_min_ver="6.1-15047,7.0-40851"
 EOF
