@@ -35,10 +35,10 @@ cat <<EOF
 package="omniedge"
 version="${VERSION}"
 arch="${PLATFORMS}"
-description="Bring Intranet on the Internet. What happens in intranet, stays in intranet."
-displayname="OmniEdge"
+description="Bring Intranet on the Internet."
+displayname="Omniedge"
 maintainer="brucebot, mtx2d"
-maintainer_url="https://github.com/omiedgeio/omniedge"
+maintainer_url="https://github.com/omiedgeio/omniedge-synology"
 create_time="${TIMESTAMP}"
 extractsize=${PKG_SIZE}
 EOF
