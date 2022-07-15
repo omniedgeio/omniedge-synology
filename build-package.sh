@@ -56,7 +56,7 @@ make_spk() {
   cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
   cp -ra src/log ${spk_tmp_dir}
   cp -ra src/var ${spk_tmp_dir}
-  if os_ver=="dsm7" then
+  if [${os_ver} =="dsm7"]; then
     cp -ra src/conf ${spk_tmp_dir}
   fi
 
