@@ -54,16 +54,16 @@ make_spk() {
   rm "${spk_tmp_dir}/extractsize_tmp"
 
   # copy scripts and icon
-  if "${os_ver}" == "dsm7"; then    
+  # if "${os_ver}" == "dsm7"; then    
     cp -ra src/scripts ${spk_tmp_dir}
     cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
     cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
     cp -ra src/conf ${spk_tmp_dir}
-  elif "${os_ver}" == "dsm6"; then 
-    cp -ra src/scripts ${spk_tmp_dir}
-    cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
-    cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
-  fi
+  # elif "${os_ver}" == "dsm6"; then 
+  #   cp -ra src/scripts ${spk_tmp_dir}
+  #   cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
+  #   cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
+  # fi
 
   # generate INFO file
   ./src/INFO.sh "${SYNOLOGY_VERSION}" ${ARCH} ${pkg_size} >"${spk_tmp_dir}"/INFO
