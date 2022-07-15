@@ -1,0 +1,19 @@
+[{
+    "step_title": "Omniedge 連接配置",
+        "items": [{
+        "type": "textfield",
+        "desc": "請提供加入的 私有網路ID",
+        "subitems": [{
+            "key": "omniedge_network_id",
+            "desc": "私有網路 ID"
+        }]
+    },
+    {
+        "type": "password",
+        "desc": "請提供登入驗證的 安全碼",
+        "subitems": [{
+            "key": "omniedge_security_key",
+            "desc": "安全碼"
+        }]
+    }]
+}]
