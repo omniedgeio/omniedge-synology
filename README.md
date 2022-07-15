@@ -20,7 +20,7 @@ Synology package for Omniedge based on pre-compiled binary.
 2. Generate **Security-key** and get the **Virtual Network ID** from [Dashboard](https://omniedge.io/dashboard)
 3. Download and install OmniEdge Synology
 4. Fill **Security-key** and **Network ID** during the installation wizard
-5. Install for DSM7 `sudo sed -i 's/package/root/g' /var/packages/omniedge/conf/privilege`, for DSM6 `route add -net IP Range dev networkcardname`
+5. Install for DSM7 `sudo sed -i 's/package/root/g' /var/packages/omniedge/conf/privilege`
 
 
 ![](omnedge-synology.png)
