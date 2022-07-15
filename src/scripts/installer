@@ -27,7 +27,7 @@ preupgrade(){
   mkdir -vp ${TMP_DIR} >>${INST_LOG} 2>&1
 
   echo "cp -rfp \"${INST_VAR}\"/. \"${TMP_DIR}\"" >>$INST_LOG
-  cp -rfp "${INST_VAR}"/. "${TMP_DIR}" >>${INST_LOG} 2>&
+  cp -rfp "${INST_VAR}"/. "${TMP_DIR}" >>${INST_LOG} 2>&1
 }
 
 postupgrade() {

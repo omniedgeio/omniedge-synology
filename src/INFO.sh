@@ -56,5 +56,5 @@ maintainer="brucebot, mtx2d"
 maintainer_url="https://github.com/omniedgeio/omniedge-synology"
 create_time="${TIMESTAMP}"
 extractsize=${PKG_SIZE}
-os_min_ver=${os_min_ver}
+os_min_ver="${os_min_ver}"
 EOF
