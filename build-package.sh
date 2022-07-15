@@ -5,6 +5,7 @@ set -e
 OMNIEDGE_VERSION=$1
 SYNOLOGY_VERSION=${OMNIEDGE_VERSION}.2
 ARCH=$2
+OS: dsm6 dsm7
 
 download_omniedge() {
   local base_url="https://github.com/omniedgeio/app-release/releases/download"
@@ -41,9 +42,10 @@ make_inner_pkg() {
 
 make_spk() {
   local spk_tmp_dir=$1
+  local os_ver=$2
   local spk_dest_dir="./spks"
   local pkg_size=$(cat ${spk_tmp_dir}/extractsize_tmp)
-  local spk_filename="omniedge_${SYNOLOGY_VERSION}_${ARCH}.spk"
+  local spk_filename="omniedge_${SYNOLOGY_VERSION}_${ARCH}_${os_ver}.spk"
 
   echo ">>> Making spk: ${spk_filename}"
   mkdir -p ${spk_dest_dir}
@@ -54,7 +56,10 @@ make_spk() {
   cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
   cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
   cp -ra src/log ${spk_tmp_dir}
-  cp -ra src/conf ${spk_tmp_dir}
+  cp -ra src/var ${spk_tmp_dir}
+  if os_ver=="dsm7" then
+    cp -ra src/conf ${spk_tmp_dir}
+  fi
 
   # generate INFO file
   ./src/INFO.sh "${SYNOLOGY_VERSION}" ${ARCH} ${pkg_size} >"${spk_tmp_dir}"/INFO
@@ -68,7 +73,8 @@ make_pkg() {
   local spk_temp_dir=$(mktemp -d -p ./_build)
 
   make_inner_pkg ${pkg_temp_dir} ${spk_temp_dir}
-  make_spk ${spk_temp_dir}
+  make_spk ${spk_temp_dir} dsm6
+  make_spk ${spk_temp_dir} dsm7
   echo ">> Done"
   echo ""
   rm -rf ${spk_temp_dir} ${pkg_temp_dir}
