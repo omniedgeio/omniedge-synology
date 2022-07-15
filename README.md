@@ -2,21 +2,11 @@
 
 Synology package for Omniedge based on pre-compiled binary.
 
-Download for your synology Model: 
-
-|Series|Generic Arch|Download Link|
-|---|---|---|
-|FS,SA,x22,x21 Series,x20(DS220+, DS420+,RS820+, RS820RP+,DS720+, DS920+, DS1520+,DS620slim) |x86_64|[omniedge_0.2.3_amd64](https://github.com/omniedgeio/omniedge-synology/releases/download/v0.2.4/omniedge_0.2.3_amd64.spk)|
-|DS220j, DS420j,DS120j |arm64v8|[omniedge_0.2.3_arm64v8](https://github.com/omniedgeio/omniedge-synology/releases/download/v0.2.4/omniedge_0.2.3_arm64v8.spk)|
-|DS419slim|armv7|[omniedge_0.2.3_armv7](https://github.com/omniedgeio/omniedge-synology/releases/download/v0.2.4/omniedge_0.2.3_armv7.spk)|
-
-
 ## Release Notes
 
 |Version|Release Date|Notes|
 |--|--|--|
-|0.2.5|July, 14, 2022|Fix DSM7 & DSM6 running error|
-|0.2.4|July, 12, 2022|Add configuration wizard during installation|
+|0.2.3.1|July, 12, 2022|Add configuration wizard during installation|
 |0.2.3|April, 25, 2022|Add refresh token|
 |0.2.2|February, 27,2022|Fix machine ID error|
 |0.2.1|January, 15, 2022|Integrated with new backend|
