@@ -57,6 +57,7 @@ make_spk() {
   cp -ra src/log ${spk_tmp_dir}
   cp -ra src/var ${spk_tmp_dir}
 
+ 
   if "${os_ver}" == "dsm7"; then    
     cp -ra src/conf ${spk_tmp_dir}
   else
@@ -72,6 +73,7 @@ make_spk() {
 make_pkg() {
 
   local os_ver=$1
+  echo "${os_ver}"
   mkdir -p ./_build
   local pkg_temp_dir=$(mktemp -d -p ./_build)
   local spk_temp_dir=$(mktemp -d -p ./_build)
@@ -86,8 +88,8 @@ make_pkg() {
 main() {
   echo "> Building package for OMNIEDGE_VERSION=${OMNIEDGE_VERSION} SYNOLOGY_VERSION=${SYNOLOGY_VERSION} ARCH=${ARCH}"
   download_omniedge
-  make_pkg "dsm6"
-  make_pkg "dsm7"
+  make_pkg dsm6
+  make_pkg dsm7
 }
 
 main
