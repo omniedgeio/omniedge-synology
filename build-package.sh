@@ -5,7 +5,6 @@ set -e
 OMNIEDGE_VERSION=$1
 SYNOLOGY_VERSION=${OMNIEDGE_VERSION}.2
 ARCH=$2
-OS: dsm6 dsm7
 
 download_omniedge() {
   local base_url="https://github.com/omniedgeio/app-release/releases/download"
