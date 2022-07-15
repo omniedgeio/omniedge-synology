@@ -51,14 +51,16 @@ make_spk() {
   rm "${spk_tmp_dir}/extractsize_tmp"
 
   # copy scripts and icon
-  if [${os_ver} =="dsm7"]; then
+  if ${os_ver} =="dsm7"; then
     cp -ra src/scripts ${spk_tmp_dir}
     cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
     cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
     cp -ra src/log ${spk_tmp_dir}
     cp -ra src/var ${spk_tmp_dir}
     cp -ra src/conf ${spk_tmp_dir}
-  else
+  fi
+
+  if ${os_ver} =="dsm6"; then
     cp -ra src/scripts ${spk_tmp_dir}
     cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
     cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
