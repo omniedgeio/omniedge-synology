@@ -3,8 +3,22 @@
 VERSION=$1
 ARCH=$2
 PKG_SIZE=$3
+OS_VERSION=$4
 
 TIMESTAMP=$(date -u +%Y%m%d-%H:%M:%S)
+
+case $OS_VERSION in
+    dsm7)
+      os_min_ver="7.0-40851"
+      ;;
+    dsm6)
+      os_min_ver="6.1-15047"
+      ;;
+    *)
+      echo "Unsupported architecture: ${OS_VERSION}"
+      exit 1
+      ;;
+esac
 
 # architecture taken from:
 # https://github.com/SynoCommunity/spksrc/wiki/Synology-and-SynoCommunity-Package-Architectures
@@ -42,5 +56,5 @@ maintainer="brucebot, mtx2d"
 maintainer_url="https://github.com/omniedgeio/omniedge-synology"
 create_time="${TIMESTAMP}"
 extractsize=${PKG_SIZE}
-os_min_ver="6.1-15047,7.0-40851"
+os_min_ver=${os_min_ver}
 EOF

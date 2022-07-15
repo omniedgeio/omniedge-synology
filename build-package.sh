@@ -30,7 +30,7 @@ make_inner_pkg() {
   echo ">>> Making inner package.tgz"
   mkdir -p ${tmp_dir}/bin
   cp -a ${omniedge_dir}/omniedge ${tmp_dir}/bin/
-  cp -ra src/log ${tmp_dir}
+  cp -ra src/logs ${tmp_dir}
   cp -ra src/var ${tmp_dir}
 
 
@@ -74,7 +74,7 @@ make_spk() {
 esac
 
   # generate INFO file
-  ./src/INFO.sh "${SYNOLOGY_VERSION}" ${ARCH} ${pkg_size} >"${spk_tmp_dir}"/INFO
+  ./src/INFO.sh "${SYNOLOGY_VERSION}" ${ARCH} ${pkg_size} ${os_ver}>"${spk_tmp_dir}"/INFO
 
   tar -cf "${spk_dest_dir}/${spk_filename}" -C "${spk_tmp_dir}" $(ls ${spk_tmp_dir})
 }
