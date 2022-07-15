@@ -42,6 +42,7 @@ make_inner_pkg() {
   ls --color=no ${tmp_dir} | tar -cJf ${dest_pkg} -C "${tmp_dir}" -T /dev/stdin
 }
 
+
 make_spk() {
   local spk_tmp_dir=$1
   local os_ver=$2
