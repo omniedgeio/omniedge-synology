@@ -9,6 +9,14 @@
         }]
     },
     {
+        "type": "textfield",
+        "desc": "请提供私有网络的 IP段",
+        "subitems": [{
+            "key": "omniedge_ip_range",
+            "desc": "私有网络 IP段"
+        }]
+    },
+    {
         "type": "password",
         "desc": "请提供登录验证的 安全码",
         "subitems": [{

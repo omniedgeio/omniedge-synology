@@ -1,9 +1,11 @@
 #!/bin/bash
 
+PACKAGE_NAME="omniedge"
+PACKAGE_BASE="/var/packages/${PACKAGE_NAME}/target"
 INST_LOG="/tmp/omniedge_install.log"
-INST_VAR="${SYNOPKG_PKGDEST}/var"
+INST_VAR="${PACKAGE_BASE}/var"
 TMP_DIR="${SYNOPKG_TEMP_UPGRADE_FOLDER}/var"
-TARGET_PATH="/var/packages/${SYNOPKG_PKGNAME}/target"
+
 
 logstep() { # <step_name>
   local date=$(date --iso-8601=second)
@@ -14,7 +16,7 @@ postinst() {
   logstep "postinst"
   echo "NETWORK_ID=${omniedge_network_id}" > ${INST_VAR}/dialog 2>&1
   echo "SECURITY_KEY=${omniedge_security_key}" >> ${INST_VAR}/dialog 2>&1
-}
+  echo "IP_RANGE=${omniedge_ip_range}" >> ${INST_VAR}/dialog 2>&1}
 
 postuninst() {
   logstep "postuninst"

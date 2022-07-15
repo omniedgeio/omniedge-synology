@@ -9,6 +9,14 @@
         }]
     },
     {
+        "type": "textfield",
+        "desc": "Please provide the network ip range for joining",
+        "subitems": [{
+            "key": "omniedge_ip_range",
+            "desc": "Omniedge Network IP RANGE"
+        }]
+    },
+    {
         "type": "password",
         "desc": "Please provide the security key for login authentication",
         "subitems": [{

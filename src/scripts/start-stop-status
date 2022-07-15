@@ -1,25 +1,29 @@
 #!/bin/bash
 
 PACKAGE_NAME="omniedge"
-PACKAGE_BIN="${SYNOPKG_PKGDEST}/bin/omniedge"
-PID_FILE="${SYNOPKG_PKGDEST}/logs/omniedge.pid"
-LOG_FILE="${SYNOPKG_PKGDEST}/logs/omniedge.log"
-DIALOG_FILE="${SYNOPKG_PKGDEST}/var/dialog"
+PACKAGE_BASE="/var/packages/${PACKAGE_NAME}/target"
+PACKAGE_BIN="${PACKAGE_BASE}/bin/omniedge"
+PID_FILE="${PACKAGE_BASE}/logs/omniedge.pid"
+LOG_FILE="${PACKAGE_BASE}/logs/omniedge.log"
+DIALOG_FILE="${PACKAGE_BASE}/var/dialog"
+HOST_NAME="$(synonet --get_hostname)"
 
 NETWORK_ID=`synogetkeyvalue "${DIALOG_FILE}" NETWORK_ID`
 SECURITY_KEY=`synogetkeyvalue "${DIALOG_FILE}" SECURITY_KEY`
-
+IP_RANGE=`synogetkeyvalue "${PACKAGE_BASE}/var/dialog" IP_RANGE`
 if [ -f "${DIALOG_FILE}" ]; then
     . ${DIALOG_FILE}
 fi
 
 start() {
   echo "=== Starting ${PACKAGE_NAME} with: login" >>${LOG_FILE}
-  ${PACKAGE_BIN} login -s ${SECURITY_KEY} -f ${SYNOPKG_PKGDEST}/var/auth.json >>${LOG_FILE} 2>&1
+  ${PACKAGE_BIN} login -s ${SECURITY_KEY} -f ${PACKAGE_BASE}/var/auth.json >>${LOG_FILE} 2>&1
 
   echo "=== Starting ${PACKAGE_NAME} with: join" >>${LOG_FILE}
-  ${PACKAGE_BIN} join -n ${NETWORK_ID} -f ${SYNOPKG_PKGDEST}/var/auth.json >>${LOG_FILE} 2>&1 &
-  if [ -n "${PID_FILE}" ]; then
+  ${PACKAGE_BIN} join -n ${NETWORK_ID} -f ${PACKAGE_BASE}/var/auth.json >>${LOG_FILE} 2>&1 &
+
+  sleep 10
+  route add -net ${IP_RANGE} dev ${HOST_NAME}  if [ -n "${PID_FILE}" ]; then
     echo "$!" >"${PID_FILE}"
   fi
 }
