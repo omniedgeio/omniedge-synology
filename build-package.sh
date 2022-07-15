@@ -80,8 +80,8 @@ make_pkg() {
   local spk_temp_dir=$(mktemp -d -p ./_build)
 
   make_inner_pkg ${pkg_temp_dir} ${spk_temp_dir}
-  make_spk ${spk_temp_dir} dsm6
-  make_spk ${spk_temp_dir} dsm7
+  make_spk ${spk_temp_dir} "dsm6"
+  make_spk ${spk_temp_dir} "dsm7"
   echo ">> Done"
   echo ""
   rm -rf ${spk_temp_dir} ${pkg_temp_dir}
