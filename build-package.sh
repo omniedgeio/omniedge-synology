@@ -30,6 +30,9 @@ make_inner_pkg() {
   echo ">>> Making inner package.tgz"
   mkdir -p ${tmp_dir}/bin
   cp -a ${omniedge_dir}/omniedge ${tmp_dir}/bin/
+  cp -ra src/log ${tmp_dir}
+  cp -ra src/var ${tmp_dir}
+
 
   #TODO: does omniedge have a daemon? Shall we add logrotate conf?
   pkg_size=$(du -sk "${tmp_dir}" | awk '{print $1}')
@@ -51,16 +54,15 @@ make_spk() {
   rm "${spk_tmp_dir}/extractsize_tmp"
 
   # copy scripts and icon
-  cp -ra src/scripts ${spk_tmp_dir}
-  cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
-  cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
-  cp -ra src/log ${spk_tmp_dir}
-  cp -ra src/var ${spk_tmp_dir}
-
   if "${os_ver}" == "dsm7"; then    
+    cp -ra src/scripts ${spk_tmp_dir}
+    cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
+    cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
     cp -ra src/conf ${spk_tmp_dir}
   elif "${os_ver}" == "dsm6"; then 
-    echo "conf folder is not necessary for dsm6."
+    cp -ra src/scripts ${spk_tmp_dir}
+    cp -a src/PACKAGE_ICON*.PNG ${spk_tmp_dir}
+    cp -ra src/WIZARD_UIFILES ${spk_tmp_dir}
   fi
 
   # generate INFO file
@@ -71,13 +73,13 @@ make_spk() {
 
 make_pkg() {
 
-  local os_ver=$1
+  local os=$1
   mkdir -p ./_build
   local pkg_temp_dir=$(mktemp -d -p ./_build)
   local spk_temp_dir=$(mktemp -d -p ./_build)
 
   make_inner_pkg ${pkg_temp_dir} ${spk_temp_dir}
-  make_spk ${spk_temp_dir} ${os_ver}
+  make_spk ${spk_temp_dir} ${os}
   echo ">> Done"
   echo ""
   rm -rf ${spk_temp_dir} ${pkg_temp_dir}
