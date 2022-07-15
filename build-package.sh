@@ -72,14 +72,13 @@ make_spk() {
 
 make_pkg() {
 
-  local os_ver=$1
-  echo "${os_ver}"
   mkdir -p ./_build
   local pkg_temp_dir=$(mktemp -d -p ./_build)
   local spk_temp_dir=$(mktemp -d -p ./_build)
 
   make_inner_pkg ${pkg_temp_dir} ${spk_temp_dir}
-  make_spk ${spk_temp_dir} ${os_ver}
+  make_spk ${spk_temp_dir} dsm6
+  make_spk ${spk_temp_dir} dsm7
   echo ">> Done"
   echo ""
   rm -rf ${spk_temp_dir} ${pkg_temp_dir}
@@ -88,8 +87,7 @@ make_pkg() {
 main() {
   echo "> Building package for OMNIEDGE_VERSION=${OMNIEDGE_VERSION} SYNOLOGY_VERSION=${SYNOLOGY_VERSION} ARCH=${ARCH}"
   download_omniedge
-  make_pkg dsm6
-  make_pkg dsm7
+  make_pkg
 }
 
 main
