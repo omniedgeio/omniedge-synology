@@ -16,7 +16,8 @@ postinst() {
   logstep "postinst"
   echo "NETWORK_ID=${omniedge_network_id}" > ${INST_VAR}/dialog 2>&1
   echo "SECURITY_KEY=${omniedge_security_key}" >> ${INST_VAR}/dialog 2>&1
-  echo "IP_RANGE=${omniedge_ip_range}" >> ${INST_VAR}/dialog 2>&1}
+  echo "IP_RANGE=${omniedge_ip_range}" >> ${INST_VAR}/dialog 2>&1
+}
 
 postuninst() {
   logstep "postuninst"

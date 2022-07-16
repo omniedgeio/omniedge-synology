@@ -10,7 +10,8 @@ HOST_NAME="$(synonet --get_hostname)"
 
 NETWORK_ID=`synogetkeyvalue "${DIALOG_FILE}" NETWORK_ID`
 SECURITY_KEY=`synogetkeyvalue "${DIALOG_FILE}" SECURITY_KEY`
-IP_RANGE=`synogetkeyvalue "${PACKAGE_BASE}/var/dialog" IP_RANGE`
+IP_RANGE=`synogetkeyvalue "${DIALOG_FILE}" IP_RANGE`
+
 if [ -f "${DIALOG_FILE}" ]; then
     . ${DIALOG_FILE}
 fi
@@ -23,7 +24,10 @@ start() {
   ${PACKAGE_BIN} join -n ${NETWORK_ID} -f ${PACKAGE_BASE}/var/auth.json >>${LOG_FILE} 2>&1 &
 
   sleep 10
-  route add -net ${IP_RANGE} dev ${HOST_NAME}  if [ -n "${PID_FILE}" ]; then
+
+  route add -net ${IP_RANGE} dev ${HOST_NAME}
+  
+  if [ -n "${PID_FILE}" ]; then
     echo "$!" >"${PID_FILE}"
   fi
 }
