@@ -30,7 +30,7 @@ amd64)
 386)
   PLATFORMS="evansport"
   ;;
-arm64v8)
+arm64)
   PLATFORMS="aarch64 armv8 rtd1296 armada37xx"
   ;;
 armv7)
