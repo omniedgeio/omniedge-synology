@@ -3,12 +3,14 @@
 set -e
 
 OMNIEDGE_VERSION=$1
-SYNOLOGY_VERSION=${OMNIEDGE_VERSION}.3
+SYNOLOGY_VERSION=${OMNIEDGE_VERSION}
 ARCH=$2
 
+# https://github.com/omniedgeio/omniedge/releases/download/v0.2.4/omniedge-v0.2.4-386.zip
+
 download_omniedge() {
-  local base_url="https://github.com/omniedgeio/app-release/releases/download"
-  local pkg_name="omniedgecli-${ARCH}.zip"
+  local base_url="https://github.com/omniedgeio/omniedge/releases/download/"
+  local pkg_name="omniedge-v${OMNIEDGE_VERSION}-${ARCH}.zip"
   local src_pkg="${base_url}/v${OMNIEDGE_VERSION}/${pkg_name}"
   local dest_dir="_omniedge/omniedge_v${OMNIEDGE_VERSION}_${ARCH}"
   local dest_pkg="${dest_dir}/${pkg_name}"
