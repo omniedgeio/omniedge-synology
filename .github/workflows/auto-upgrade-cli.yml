@@ -10,12 +10,14 @@ on:
         required: true
 
 jobs:
-  upgrade-cli:
-    name: Upgrade OmniEdge CLI version
+  upgrade-and-release:
+    name: Upgrade CLI and Release Synology Package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get version
         id: version
@@ -25,7 +27,6 @@ jobs:
           else
             echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
           fi
-          # Get current date for release notes
           echo "date=$(date '+%B %d, %Y')" >> $GITHUB_OUTPUT
 
       - name: Update README with new release
@@ -40,25 +41,17 @@ jobs:
           sed -i "/|--|--|--|/a ${NEW_LINE}" README.md
           echo "Updated README with version ${VERSION}"
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: upgrade omniedge-cli to v${{ steps.version.outputs.version }}"
-          title: "🔄 Upgrade OmniEdge CLI to v${{ steps.version.outputs.version }}"
-          body: |
-            ## Automated CLI Upgrade
+      - name: Commit and push changes
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: upgrade omniedge-cli to v${VERSION}" || echo "No changes to commit"
+          git push origin main
 
-            This PR was automatically created by the CLI release workflow.
-
-            **Changes:**
-            - Added new version entry to `README.md` release notes
-
-            **CLI Release:** https://github.com/omniedgeio/omniedge-cli/releases/tag/v${{ steps.version.outputs.version }}
-            
-            **Note:** After merging, please update the Synology package build scripts if needed.
-          branch: auto-upgrade/cli-v${{ steps.version.outputs.version }}
-          base: main
-          labels: |
-            automated
-            dependency-update
+      - name: Create and push tag
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          git tag -a "v${VERSION}" -m "Release v${VERSION} - Auto-upgraded from omniedge-cli"
+          git push origin "v${VERSION}"
