@@ -16,8 +16,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Get version
+        id: version
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            version="${{ github.ref_name }}"
+            version_no_v="${version#v}"
+          else
+            version_no_v="0.3.0"
+          fi
+          echo "OMNIEDGE_VERSION=$version_no_v" >> $GITHUB_ENV
+
       - name: make packages
-        run: make
+        run: make OMNIEDGE_VERSION=${{ env.OMNIEDGE_VERSION }}
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
