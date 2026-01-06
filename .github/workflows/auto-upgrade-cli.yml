@@ -63,3 +63,11 @@ jobs:
           repository: omniedgeio/omniedge-web-frontend
           event-type: synology-release
           client-payload: '{"package": "synology", "version": "${{ steps.version.outputs.version }}"}'
+
+      - name: Notify meta-repo to update submodule
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: omniedgeio/omniedge
+          event-type: meta-release
+          client-payload: '{"package": "synology", "version": "${{ steps.version.outputs.version }}"}'
