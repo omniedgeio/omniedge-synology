@@ -1,0 +1,61 @@
+name: Auto-upgrade OmniEdge CLI
+
+on:
+  repository_dispatch:
+    types: [cli-release]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'CLI version to upgrade to (e.g., 0.3.0)'
+        required: true
+
+jobs:
+  upgrade-cli:
+    name: Upgrade OmniEdge CLI version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "version=${{ github.event.client_payload.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update version in README
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          # Update any version references in README if they exist
+          if grep -q "v[0-9]*\.[0-9]*\.[0-9]*" README.md; then
+            sed -i "s/v[0-9]*\.[0-9]*\.[0-9]*/v${VERSION}/g" README.md
+          fi
+          echo "CLI_VERSION=${VERSION}" > .cli-version
+          echo "Updated CLI version to ${VERSION}"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: upgrade omniedge-cli to v${{ steps.version.outputs.version }}"
+          title: "🔄 Upgrade OmniEdge CLI to v${{ steps.version.outputs.version }}"
+          body: |
+            ## Automated CLI Upgrade
+
+            This PR was automatically created by the CLI release workflow.
+
+            **Changes:**
+            - Updated CLI version reference to `${{ steps.version.outputs.version }}`
+            - Created `.cli-version` file
+
+            **CLI Release:** https://github.com/omniedgeio/omniedge-cli/releases/tag/v${{ steps.version.outputs.version }}
+
+            **Note:** Please update `Makefile` with the new CLI version if building packages.
+          branch: auto-upgrade/cli-v${{ steps.version.outputs.version }}
+          base: main
+          labels: |
+            automated
+            dependency-update
