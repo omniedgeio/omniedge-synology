@@ -55,3 +55,11 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
           git tag -a "v${VERSION}" -m "Release v${VERSION} - Auto-upgraded from omniedge-cli"
           git push origin "v${VERSION}"
+
+      - name: Notify web-frontend to update docs
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: omniedgeio/omniedge-web-frontend
+          event-type: synology-release
+          client-payload: '{"package": "synology", "version": "${{ steps.version.outputs.version }}"}'
