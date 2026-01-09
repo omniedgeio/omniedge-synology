@@ -3,12 +3,13 @@ name: CI
 on:
   push:
     branches: [main]
+    tags:
+      - 'v*'
   pull_request:
     branches: [main]
-  create: # create branch or tag
-  release:
-    types:
-      - created
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -34,12 +35,13 @@ jobs:
           if-no-files-found: warn
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
           files: spks/*
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           generate_release_notes: true
+          fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
