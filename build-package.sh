@@ -6,8 +6,6 @@ OMNIEDGE_VERSION=$1
 SYNOLOGY_VERSION=${OMNIEDGE_VERSION}
 ARCH=$2
 
-# https://github.com/omniedgeio/omniedge/releases/download/v0.2.4/omniedge-v0.2.4-386.zip
-
 download_omniedge() {
   local base_url="https://github.com/omniedgeio/omniedge/releases/download"
   local pkg_name="omniedge-v${OMNIEDGE_VERSION}-${ARCH}.zip"
