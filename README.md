@@ -7,6 +7,7 @@ Synology package for Omniedge based on pre-compiled binary.
 |Version|Release Date|Notes|
 |--|--|--|
 |2.3.0|February 04, 2026|Automated CLI upgrade|
+|2.3.0|February 04, 2026|Automated CLI upgrade|
 |2.2.3|February 03, 2026|Automated CLI upgrade|
 |2.2.2|February 01, 2026|Automated CLI upgrade|
 |2.2.1|February 01, 2026|Automated CLI upgrade|
